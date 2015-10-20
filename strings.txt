@@ -1,0 +1,23 @@
+INSERT INTO `kdumooc`.`lecturer` (`idLECTURER`, `first_name`, `last_name`, `qualifications`, `nic`, `gender`, `email`, `username`, `password`, `deleted`) VALUES (NULL, 'Neranjaka', 'Jayarathne', NULL, '84566288V', 'Male', 'neranjaka@kdu.ac.lk', 'neranjaka', MD5('test'), '0');
+
+INSERT INTO `kdumooc`.`course` (`idCOURSE`, `no_of_students`, `category`, `duration`, `title`, `LECTURER_idLECTURER`, `deleted`) VALUES (NULL, '25', 'Mathematics', '3 months', 'Discrete Mathematics 1', '1', '0');
+
+INSERT INTO `kdumooc`.`module` (`idMODULE`, `module_name`, `COURSE_idCOURSE`, `deleted`) VALUES (NULL, 'The Foundations: Logic and Proofs', '1', '0');
+
+INSERT INTO `kdumooc`.`questionbank` (`idQUESTIONBANK`, `level`, `type`, `content`, `deleted`, `MODULE_idMODULE`) VALUES (NULL, '3', 'MCQ', 'Find the bitwise OR, bitwise AND, and bitwise XOR of each of these pairs of bit strings.', '0', '1');
+
+INSERT INTO `kdumooc`.`answer` (`idANSWER`, `answer`, `QUESTIONBANK_idQUESTIONBANK`, `deleted`, `correct_answer`) VALUES (NULL, '101 1110 , 010 0001', '2', '0', NULL), (NULL, '1111 0000 , 1010 1010', '2', '0', '0');
+
+INSERT INTO `kdumooc`.`answer` (`idANSWER`, `answer`, `QUESTIONBANK_idQUESTIONBANK`, `deleted`, `correct_answer`) VALUES (NULL, '00 0111 0001 , 10 0100 1000', '2', '0', NULL), (NULL, '11 1111 1111 , 00 0000 0000', '2', '0', NULL);
+
+question.php?question=
+
+http://localhost:1234/kdumooc/question.php?question=Find%20the%20bitwise%20OR,%20bitwise%20AND,%20and%20bitwise%20XOR%20of%20each%20of%20these%20pairs%20of%20bit%20strings.&
+
+question_no=1
+&
+question_id=1
+&
+type=MCQ
+&
+answer_count=4
