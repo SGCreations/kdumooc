@@ -27,26 +27,29 @@ include 'require/connection.php';
                 echo "<center><div>";
                 echo "Invalid username and / or password. Please re-enter.";
                 echo "</div></center><br/>";
+                ?>
+                <div class="alert alert-dismissable alert-success">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
+                </div>
+                <div class="alert alert-dismissable alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <h4>Warning!</h4>
+                    <p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
+                </div>
+                <?php
             }
             ?>
-            <div class="alert alert-dismissable alert-success">
-                <button type="button" class="close" data-dismiss="alert">x</button>
-                <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
-            </div>
-            <div class="alert alert-dismissable alert-warning">
-                <button type="button" class="close" data-dismiss="alert">x</button>
-                <h4>Warning!</h4>
-                <p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
-            </div>
+
             <label for="id_modules">Choose Module: </label>
             <select name="modules" id="id_modules">
-<!--                <option selected="selected">Choose Module: </option>-->
-                <?php  foreach ($names as $name) { ?>
+                <!--                <option selected="selected">Choose Module: </option>-->
+                <?php foreach ($names as $name) { ?>
                     <option value="<?= $name['name'] ?>"><?= $name['name'] ?></option>
-                    <?php }
+                <?php }
                 ?>
             </select> 
-            
+
             <div class="form-group">
                 <label for="id_question" class="control-label">Question: </label>
                 <input type="text" class="form-control input-lg" id="id_question" name="name_question">

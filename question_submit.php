@@ -10,5 +10,5 @@ include 'require/connection.php';
 
 var_dump($_POST);
 
-getModuleList(1,$conn);
+getModuleList(1,$db);
 ?>
