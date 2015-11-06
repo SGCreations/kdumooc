@@ -13,7 +13,6 @@ function createAnswerArray($no_of_answers) {
 }
 
 function getModuleList($course_id, $db) {
-
     $sql = "SELECT module_name FROM `module` WHERE COURSE_idCOURSE='$course_id' AND deleted=0 ORDER BY module_name";
     $sth = $db->prepare($sql);
     $sth->execute();
@@ -122,6 +121,19 @@ function loadStudentDetails($studentID, $db){
     /* Fetch all of the remaining rows in the result set */
     //print("Fetch all of the remaining rows in the result set:\n");
     $result = $sth->fetchAll();
+    return $result;
+}
+
+function getLastStudentID($db){
+    $sql = "SELECT module_name FROM `module` WHERE COURSE_idCOURSE='$course_id' AND deleted=0 ORDER BY module_name";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+
+    /* Fetch all of the remaining rows in the result set */
+    print("Fetch all of the remaining rows in the result set:\n");
+    $result = $sth->fetchAll();
+    //var_dump($result);
+
     return $result;
 }
 ?>

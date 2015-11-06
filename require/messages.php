@@ -12,5 +12,7 @@ $no_authorization = "You are not allowed to perform the requested operation.";
 $student_deletion_success = "The requested student has been deleted from the database.";
 $nic_duplicate_error = "The entered NIC No. already exists in our system. Please retry.";
 $invalid_request = "Invalid request. The operation cannot be performed.";
-$success_message_update_student = "Student details updated successfully."
+$success_message_update_student = "Student details updated successfully.";
+$success_message_activate_student = "Your account has been activated successfully!";
+$error_sending_email = "There was an error in sending the activation email to the email you provided. Please re-check your mail address or contact our Support Team.";
 ?>

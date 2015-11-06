@@ -21,3 +21,78 @@ question_id=1
 type=MCQ
 &
 answer_count=4
+
+
+$mail = new PHPMailer;
+
+$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+$mail->isSMTP();
+//$mail->SMTPSecure = 'tls';// Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->Username = '4x8x12@gmail.com';                 // SMTP username
+$mail->Password = 'pin.cs31';                           // SMTP password
+$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                                    // TCP port to connect to 465
+
+$mail->setFrom('from@example.com', 'Mailer');
+$mail->addAddress('scgcreations@gmail.com', 'Joe User');     // Add a recipient
+//$mail->addAddress('ellen@example.com');               // Name is optional
+$mail->addReplyTo('info@example.com', 'Information');
+//$mail->addCC('cc@example.com');
+//$mail->addBCC('bcc@example.com');
+//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+$mail->isHTML(true);                                  // Set email format to HTML
+
+$mail->Subject = 'Here is the subject';
+$mail->Body = $email_welcome;
+$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+if (!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else {
+    echo 'Message has been sent';
+}
+?>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; ">
+
+    </head>
+    <body style="background: #f1f1f1; padding: 20px" bgcolor="#f1f1f1">
+
+        <table class="main" style="background: #fff; border: 1px solid #e1e1e1; width: 560px" bgcolor="#fff">
+            <tr>
+                <td>
+                    
+                    <p style="color: #494848; font-family: 'Open Sans','Helvetica Neue',sans-serif; font-size: 13px; font-weight: 400; margin: 15px; width: 522px">
+                        Hi Sidath,
+                    </p>
+
+                    <p style="color: #494848; font-family: 'Open Sans','Helvetica Neue',sans-serif; font-size: 13px; font-weight: 400; margin: 15px; width: 522px">
+                        Welcome to KDUMOOC! We hope that you would enjoy the services of the trending MassiVe Open Online Course Provider in Sri Lanka. Wish that you have a fulfilling journey with us.
+                    </p>
+
+                    <p style="color: #494848; font-family: 'Open Sans','Helvetica Neue',sans-serif; font-size: 13px; font-weight: 400; margin: 15px; width: 522px">
+                        Your account has been created, but will not be accessible until you activate it. To do so please visit <a href="<?php echo $redirectActivationURL;  ?>"><?php echo $redirectActivationURL;  ?></a>
+                    </p>
+                    <p style="color: #494848; font-family: 'Open Sans','Helvetica Neue',sans-serif; font-size: 13px; font-weight: 400; margin: 15px; width: 522px">
+                        Thanks,<br>
+                        The Academia.edu Team
+                    </p>
+                    
+
+                </td>
+            </tr>
+        </table>
+
+        <p class="footer" style="color: #777; font-family: 'Open Sans','Helvetica Neue',sans-serif; font-size: 11px; font-weight: 400; margin: 15px 0; width: 560px">
+            KDUMOOC Team. General Sir John Kotelawala Defence University, Sri Lanka. 
+        </p>
+        
+    </body>
+</html>
