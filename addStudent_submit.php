@@ -8,11 +8,13 @@
 include 'require/functions.php';
 include 'require/connection.php';
 include 'require/messages.php';
+require 'require/config.php';
 include 'sendMail.php';
 //var_dump($_POST);
 //die();
 if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['nic']) || !isset($_POST['gender']) || !isset($_POST['email']) || !isset($_POST['pwd'])) {
     header("Location:index.php");
+    die();
 }
 $firstName = $_POST['firstName'];
 $lastName = $_POST['lastName'];
@@ -38,7 +40,7 @@ if ($firstName != null && $email != null && ($password == $retype_pwd)) {
         if ($conn->query($insert_into_user) === TRUE) {
             $last_id = $conn->insert_id;
             $fullName = $firstName . " " . $lastName;
-            $redirectURL = "http://localhost:1234/kdumooc/activateStudent.php?studentID=" . $last_id . "&token=" . sha1($last_id) . "&nic=" . $nic . "";
+            $redirectURL = DOMAIN_URL . "activateStudent.php?studentID=" . $last_id . "&token=" . sha1($last_id) . "&nic=" . $nic . "";
             if (sendWelcomeEmail($redirectURL, $email, $fullName, $firstName) == false) {
                 header("Location:index.php?message=" . $error_sending_email . "&token=" . sha1($error_sending_email) . "");
                 die();
