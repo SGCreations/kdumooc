@@ -20,4 +20,5 @@ var_dump(loadStudentDetails(1, $db));
 $val = loadStudentDetails(1, $db);
 echo $val[0]['first_name'];
 echo count(loadStudentDetails(1, $db));
+echo "<h1>" . doesEmailExist('sinhalokaya@gmail.com',$conn) . "</h1>";
 ?>

@@ -23,7 +23,7 @@ $dob = $_POST['dob'];
 $email = $_POST['email'];
 $studentID = $_POST['studentID'];
 if ($firstName != null && $email != null) {
-    if (doesUserExist(NULL, $email, $conn) == TRUE) {
+    if (doesUserExistStudent(NULL, $email, $conn) == TRUE) {
         $error = "E-mail already exists in our database! If you are the user of $email and have forgotten your password go to \"Sign In\" and select \"Forgot Your Password\"...";
         //echo sha1($error);
         header("Location:editStudent.php?error=" . $error . "&token=" . sha1($error) . "");

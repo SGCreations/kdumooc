@@ -6,11 +6,43 @@
 include 'require/links.php';
 include 'require/functions.php';
 include 'require/messages.php';
+include 'sendMail.php';
 ?>
 
 <html lang="en">
     <head>
         <title>KDUMOOC</title>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                //onSelect event
+                $('#idEmail').keyup(function() {
+                    //get selected value (selectedVal)
+                    var selectedVal = $('#idEmail').val();
+                    //Ajax
+                    $.ajax({
+                        type: 'POST',
+                        url: 'doesEmailExist.php',
+                        data: {email: selectedVal, type: "L"},
+                        cache: false,
+                        success: function(data) {
+                            //Json array convert to JSON dataset
+                            var finalData = $.parseJSON(data);
+                            //Get json array keys
+                            var finalarray = Object.keys(finalData);
+                            var stringReturn = JSON.stringify(finalData);
+                            //alert(stringReturn);
+                            if (stringReturn == "\"true\"") {
+                                $('#idEmailMessage').html("<i style=\"visibility: hidden\" id=\"idfacheck\" class=\"fa fa-times\"></i>&nbsp;Username unavailable!").css({"visibility": "visible"});
+                                $('#idfacheck').css({"color": "red", }).attr("class", "fa fa-times").css({"visibility": "visible"});
+                            } else {
+                                $('#idEmailMessage').html("<i style=\"visibility: hidden\" id=\"idfacheck\" class=\"fa fa-times\"></i>&nbsp;Username available!").css({"visibility": "visible"});
+                                $('#idfacheck').css({"color": "green", }).attr("class", "fa fa-check").css({"visibility": "visible"});
+                            }
+                        },
+                    });
+                });
+            });
+        </script>
         <script type="text/javascript">
             (function($, W, D)
             {
@@ -74,6 +106,13 @@ include 'require/messages.php';
                 });
 
             })(jQuery, window, document);
+            /*$("#register-form").submit(function(e) {
+             var emailEntered = $("#idEmailMessage").val();
+             alert(emailEntered);
+             if (emailEntered == "Email exists") {
+             e.preventDefault();
+             }
+             });      */
         </script>
         <style type="text/css">
             .text-strikethru .line {
@@ -178,11 +217,15 @@ include 'require/messages.php';
                                 </select>
                             </div>
                         </div> 
+
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="idEmail">E-mail (This will function as your username):</label>
-
                             <div class="col-sm-6">
                                 <input type="email" class="form-control" id="idEmail" placeholder="Enter E-mail" name="email">
+                            </div>
+                            <div class="col-sm-2"> 
+                                <p style="visibility: hidden" id="idEmailMessage">E-mail exists!
+                                    <i style="visibility: hidden" id="idfacheck" class="fa fa-times"></i></p>
                             </div>
                         </div>
 

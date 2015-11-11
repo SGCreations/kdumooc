@@ -13,6 +13,37 @@ include 'headerGeneral.php';
     <head>
         <title>KDUMOOC</title>
         <script type="text/javascript">
+            $(document).ready(function() {
+                //onSelect event
+                $('#idEmail').keyup(function() {
+                    //get selected value (selectedVal)
+                    var selectedVal = $('#idEmail').val();
+                    //Ajax
+                    $.ajax({
+                        type: 'POST',
+                        url: 'doesEmailExist.php',
+                        data: {email: selectedVal, type: "S"},
+                        cache: false,
+                        success: function(data) {
+                            //Json array convert to JSON dataset
+                            var finalData = $.parseJSON(data);
+                            //Get json array keys
+                            var finalarray = Object.keys(finalData);
+                            var stringReturn = JSON.stringify(finalData);
+                            //alert(stringReturn);
+                            if (stringReturn == "\"true\"") {
+                                $('#idEmailMessage').html("<i style=\"visibility: hidden\" id=\"idfacheck\" class=\"fa fa-times\"></i>&nbsp;Username unavailable!").css({"visibility": "visible"});
+                                $('#idfacheck').css({"color": "red", }).attr("class", "fa fa-times").css({"visibility": "visible"});
+                            } else {
+                                $('#idEmailMessage').html("<i style=\"visibility: hidden\" id=\"idfacheck\" class=\"fa fa-times\"></i>&nbsp;Username available!").css({"visibility": "visible"});
+                                $('#idfacheck').css({"color": "green", }).attr("class", "fa fa-check").css({"visibility": "visible"});
+                            }
+                        },
+                    });
+                });
+            });
+        </script>
+        <script type="text/javascript">
             (function($, W, D)
             {
                 var JQUERY4U = {};
@@ -147,26 +178,26 @@ include 'headerGeneral.php';
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="idFirstName" >First Name:</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="idFirstName" placeholder="Enter Your First Name" name="firstName">
+                                <input type="text" class="form-control" maxlength="175" id="idFirstName" placeholder="Enter Your First Name" name="firstName">
                             </div>
                         </div>  
 
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="idLastName" >Last Name:</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="idLastName" placeholder="Enter Your Last Name" name="lastName">
+                                <input type="text" class="form-control" maxlength="175" id="idLastName" placeholder="Enter Your Last Name" name="lastName">
                             </div>
                         </div>  
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="idRegistrationNo" >Registration No.:</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="idQualifications" name="registrationNo" placeholder="Enter Your Registration No. (If one has been provided)"/>
+                                <input type="text" class="form-control" maxlength="10" id="idQualifications" name="registrationNo" placeholder="Enter Your Registration No. (If one has been provided)"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="idNIC" >NIC No.:</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="idNIC" placeholder="Enter Your National Identity Card Number" name="nic">
+                                <input type="text" class="form-control" maxlength="10" id="idNIC" placeholder="Enter Your National Identity Card Number" name="nic">
                             </div>
                         </div> 
                         <div class="form-group">
@@ -189,7 +220,11 @@ include 'headerGeneral.php';
                             <label class="control-label col-sm-4" for="idEmail">E-mail (This will function as your username):</label>
 
                             <div class="col-sm-6">
-                                <input type="email" class="form-control" id="idEmail" placeholder="Enter E-mail" name="email">
+                                <input type="email" class="form-control" maxlength="175" id="idEmail" placeholder="Enter E-mail" name="email">
+                            </div>
+                             <div class="col-sm-2"> 
+                                <p style="visibility: hidden" id="idEmailMessage">E-mail exists!
+                                    <i style="visibility: hidden" id="idfacheck" class="fa fa-times"></i></p>
                             </div>
                         </div>
 
@@ -197,7 +232,7 @@ include 'headerGeneral.php';
                             <label class="control-label col-sm-4" for="pwd">Password:</label>
 
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="pwd" placeholder="Enter Password" name="pwd">
+                                <input type="password" class="form-control" maxlength="50" id="pwd" placeholder="Enter Password" name="pwd">
                             </div>
                         </div>
 
@@ -205,7 +240,7 @@ include 'headerGeneral.php';
                             <label class="control-label col-sm-4" for="pwd">Confirm Password:</label>
 
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="pwd_confirm" placeholder="Confirm Password" name="pwd_confirm">
+                                <input type="password" class="form-control"  maxlength="50" id="pwd_confirm" placeholder="Confirm Password" name="pwd_confirm">
                             </div>                        
                         </div>
                         <div class="col-lg-12">

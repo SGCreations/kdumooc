@@ -19,7 +19,7 @@ if (!isset($_GET['studentID']) || (sha1($_GET['studentID']) != $_GET['token']) |
     } else {
         $activate_user = "UPDATE `kdumooc`.`student` SET `activated` = '1' WHERE `student`.`idSTUDENT` = $studentID AND `student`.`nic` = '$nic';";
         if ($conn->query($activate_user) === TRUE) {
-            header("Location:login.php?message=" . $success_message_activate_student . "&token=" . sha1($success_message_activate_student) . "");
+            header("Location:index.php?message=" . $success_message_activate_student . "&token=" . sha1($success_message_activate_student) . "");
             die();
         } else {
             header("Location:index.php?message=" . $conn->error . "&token=" . sha1($conn->error) . "");

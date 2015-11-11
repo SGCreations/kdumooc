@@ -25,7 +25,24 @@ function getModuleList($course_id, $db) {
     return $result;
 }
 
-function doesUserExist($username, $email, $db) {
+function doesUserExistLecturer($username, $email, $db) {
+    if ($email == NULL) {
+        $email = "";
+    }
+    if ($username == NULL) {
+        $username = "";
+    }
+    $sql = "SELECT * FROM `lecturer` WHERE username='$username' or email='$email'";
+    $result = $db->query($sql);
+    if ($result->num_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+    $db->close();
+}
+
+function doesUserExistStudent($username, $email, $db) {
     if ($email == NULL) {
         $email = "";
     }
@@ -75,6 +92,21 @@ function doesModuleExist($moduleTitle, $conn) {
     $conn->close();
 }
 
+function doesEmailExist($email, $type, $conn) {
+    if ($type == "L") {
+        $sql = "SELECT * FROM `lecturer` WHERE email='$email'";
+    } else {
+        $sql = "SELECT * FROM `student` WHERE email='$email'";
+    }
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+    $conn->close();
+}
+
 function getVerifiedLecturers($db) {
     $sql = "SELECT idLecturer, first_name, last_name FROM `lecturer` WHERE `deleted` = 0 AND `activated` = 1 AND `verified` = 1 ORDER BY idLecturer Asc";
     $sth = $db->prepare($sql);
@@ -114,7 +146,8 @@ function getActiveStudents($db) {
     $result = $sth->fetchAll();
     return $result;
 }
-function loadStudentDetails($studentID, $db){
+
+function loadStudentDetails($studentID, $db) {
     $sql = "SELECT * FROM `student` where `idSTUDENT`=$studentID AND `deleted`=0";
     $sth = $db->prepare($sql);
     $sth->execute();
@@ -124,7 +157,7 @@ function loadStudentDetails($studentID, $db){
     return $result;
 }
 
-function getLastStudentID($db){
+function getLastStudentID($db) {
     $sql = "SELECT module_name FROM `module` WHERE COURSE_idCOURSE='$course_id' AND deleted=0 ORDER BY module_name";
     $sth = $db->prepare($sql);
     $sth->execute();
@@ -136,4 +169,36 @@ function getLastStudentID($db){
 
     return $result;
 }
+
+function validateUser($email, $password, $type, $conn) {
+    if ($email == "") {
+        return false;
+    }
+    if ($password == "") {
+        return false;
+    }
+    if($type=="S"){
+        $sql = "SELECT * FROM `student` WHERE email='$email' AND `activated`=true AND `deleted`=false";
+    }else{
+       $sql = "SELECT * FROM `lecturer` WHERE email='$email' AND `activated`=true AND `deleted`=false"; 
+    }
+    
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+           $password_return =  $row["password"] ;
+        }
+        if(md5($password)==$password_return){
+            return true;
+        }
+        else{
+            return false;
+        }
+    } else {
+        return false;
+    }
+    $conn->close();
+}
+
 ?>

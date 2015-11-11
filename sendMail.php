@@ -22,7 +22,7 @@ function sendWelcomeEmail($redirectActivationURL, $toEmail, $fullName, $firstNam
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'Welcome to KDUMOOC';
     $mail->Body = $email_welcome;
-    $mail->AltBody = 'This is the account activation email sent from KDUMOOC.';
+    $mail->AltBody = 'Account activation email sent from KDUMOOC.';
 
     if (!$mail->send()) {
         //echo 'Message could not be sent.';
