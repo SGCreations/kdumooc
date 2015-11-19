@@ -27,6 +27,11 @@ if (!defined('DB_HOST')) {
 
 /* The path where KDUMOOC is hosted */
 if (!defined('DOMAIN_URL')) {
-    define('DOMAIN_URL', "http://localhost:1234/kdumooc/");
+    define('DOMAIN_URL',"http://" . $_SERVER['HTTP_HOST'] . "/kdumooc/" );
+}
+//"http://localhost:1234/kdumooc/"
+
+if (!defined('STUDENT_PROFILE_PIC_UPLOAD_URL')) {
+    define('STUDENT_PROFILE_PIC_UPLOAD_URL', DOMAIN_URL . "/images/student-profile-pics/");
 }
 ?>

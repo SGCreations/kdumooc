@@ -43,17 +43,12 @@ include 'headerGeneral.php';
                                             maxlength: 10,
                                             pattern: "[0-9]{9}[a-zA-Z]",
                                         },
-                                        email: {
-                                            required: true,
-                                            email: true
-                                        },
                                     },
                                     messages: {
                                         firstName: "This field is mandatory.",
                                         lastName: "This field is mandatory.",
                                         nic: "Please provide a valid Sri Lankan NIC No.",
                                         username: "Please enter a username.",
-                                        email: "Please enter a valid email address!",
                                     },
                                     submitHandler: function(form) {
                                         form.submit();
@@ -69,7 +64,7 @@ include 'headerGeneral.php';
 
             })(jQuery, window, document);
         </script>
-        
+
     </head>
     <body>
         <div class="container">
@@ -95,9 +90,15 @@ include 'headerGeneral.php';
                     echo "</div>";
                 }
                 ?>
-                <form class="form-horizontal" id="register-form" novalidate="novalidate" action='editStudent_submit.php' method="post"> 
+                <form class="form-horizontal" enctype="multipart/form-data" id="register-form" novalidate="novalidate" action='editStudent_submit.php' method="post"> 
                     <div class="col-lg-12">
                         <input type="hidden" value="<?php echo $student_details[0]['idSTUDENT'] ?>" name="studentID"/>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="fileToUpload" >Upload Profile Image:</label>
+                            <div class="col-sm-6">
+                                <input class="form-control"  type="file" name="fileToUpload" id="fileToUpload">
+                            </div>
+                        </div>  
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="idFirstName" >First Name:</label>
                             <div class="col-sm-6">
@@ -134,26 +135,20 @@ include 'headerGeneral.php';
                             <div class="col-sm-6">
                                 <select class="form-control" id="idGender" name="gender" >
                                     <option id="idMale" <?php
-                                    if ($student_details[0]['gender'] == 'Male') {
-                                        echo "selected=\"selected\"";
-                                    }
-                                    ?>>Male</option>
+                if ($student_details[0]['gender'] == 'Male') {
+                    echo "selected=\"selected\"";
+                }
+                ?>>Male</option>
                                     <option id="idFemale" <?php
                                     if ($student_details[0]['gender'] == 'Female') {
                                         echo "selected=\"selected\"";
                                     }
-                                    ?>>Female</option>
+                ?>>Female</option>
 
                                 </select>
                             </div>
                         </div> 
-                        <div class="form-group">
-                            <label class="control-label col-sm-4" for="idEmail">E-mail (This will function as your username):</label>
 
-                            <div class="col-sm-6">
-                                <input type="email" class="form-control" id="idEmail" placeholder="Enter E-mail" name="email" value="<?php echo $student_details[0]['email'] ?>">
-                            </div>
-                        </div>               
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <button type="submit" class="submit btn btn-primary">Update Student Details</button>
@@ -165,7 +160,7 @@ include 'headerGeneral.php';
                 </form>
             </center>  
         </div>
-<?php include 'footerGeneral.php'; ?>
+        <?php include 'footerGeneral.php'; ?>
     </body>
 </html>
 
