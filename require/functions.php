@@ -13,7 +13,7 @@ function createAnswerArray($no_of_answers) {
 }
 
 function getModuleList($course_id, $db) {
-    $sql = "SELECT module_name FROM `module` WHERE COURSE_idCOURSE='$course_id' AND deleted=0 ORDER BY module_name";
+    $sql = "SELECT module_name FROM `module` WHERE COURSE_idCOURSE='$course_id' AND deleted=0 ORDER BY module_name asc";
     $sth = $db->prepare($sql);
     $sth->execute();
 
@@ -23,6 +23,23 @@ function getModuleList($course_id, $db) {
     //var_dump($result);
 
     return $result;
+}
+
+function getModuleDetails($course_id, $db) {
+    $sql = "SELECT * FROM `module` WHERE COURSE_idCOURSE='$course_id' AND deleted=0 ORDER BY module_name asc";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+
+    /* Fetch all of the remaining rows in the result set */
+    print("Fetch all of the remaining rows in the result set:\n");
+    $result = $sth->fetchAll();
+    //var_dump($result);
+
+    return $result;
+}
+
+function echoHiddenField($name, $value) {
+    echo "<input value=" . $value . " name=" . $name . " type=\"text\" style=\"display:none;\" />";
 }
 
 function doesUserExistLecturer($username, $email, $db) {
@@ -40,6 +57,14 @@ function doesUserExistLecturer($username, $email, $db) {
         return false;
     }
     $db->close();
+}
+
+function getCorrectAnswer($i, $correct_answer) {
+    if ($i == $correct_answer) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 function doesUserExistStudent($username, $email, $db) {
@@ -167,7 +192,6 @@ function loadLecturerDetails($lecturerID, $db) {
     return $result;
 }
 
-
 function getLastStudentID($db) {
     $sql = "SELECT module_name FROM `module` WHERE COURSE_idCOURSE='$course_id' AND deleted=0 ORDER BY module_name";
     $sth = $db->prepare($sql);
@@ -188,20 +212,19 @@ function validateUser($email, $password, $type, $conn) {
     if ($password == "") {
         return false;
     }
-    if($type=="S"){
+    if ($type == "S") {
         $sql = "SELECT * FROM `student` WHERE email='$email' AND `activated`=true AND `deleted`=false";
-    }else{
-       $sql = "SELECT * FROM `lecturer` WHERE email='$email' AND `activated`=true AND `deleted`=false"; 
-    }   
+    } else {
+        $sql = "SELECT * FROM `lecturer` WHERE email='$email' AND `activated`=true AND `deleted`=false";
+    }
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-           $password_return =  $row["password"] ;
+            $password_return = $row["password"];
         }
-        if(md5($password)==$password_return){
+        if (md5($password) == $password_return) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     } else {

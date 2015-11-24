@@ -15,5 +15,6 @@ $invalid_request = "Invalid request. The operation cannot be performed.";
 $success_message_update_student = "Student details updated successfully.";
 $success_message_activate_student = "Your account has been activated successfully!";
 $error_sending_email = "There was an error in sending the activation email to the email you provided. Please re-check your mail address or contact our Support Team.";
-$success_message_activate_lecturer="Your account has been activated successfully!";
+$success_message_activate_lecturer = "Your account has been activated successfully!";
+$success_message_add_question = "Question added successfully!";
 ?>

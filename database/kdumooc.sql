@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2015 at 07:30 PM
+-- Generation Time: Nov 24, 2015 at 05:55 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -48,14 +48,33 @@ CREATE TABLE IF NOT EXISTS `allstudents` (
 
 CREATE TABLE IF NOT EXISTS `answer` (
   `idANSWER` int(11) NOT NULL AUTO_INCREMENT,
-  `answer` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `answer` longtext COLLATE utf8_unicode_ci,
   `QUESTIONBANK_idQUESTIONBANK` int(11) NOT NULL,
   `deleted` tinyint(1) DEFAULT NULL,
   `correct_answer` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idANSWER`),
   KEY `fk_ANSWER_QUESTIONBANK1_idx` (`QUESTIONBANK_idQUESTIONBANK`),
   KEY `PIndex` (`idANSWER`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+
+--
+-- Dumping data for table `answer`
+--
+
+INSERT INTO `answer` (`idANSWER`, `answer`, `QUESTIONBANK_idQUESTIONBANK`, `deleted`, `correct_answer`) VALUES
+(1, 'If Bill is Tom’s Brother, then Tom is Jane’s father and Jane is not Bill’s niece.', 1, 0, 0),
+(4, 'sdfsd', 6, 0, 0),
+(5, 'sfsd', 6, 0, 0),
+(6, 'dsfsdgs', 6, 0, 0),
+(7, 'erew', 6, 0, 1),
+(8, 'If n is not divisible by 30 then n is divisible by 2 or divisible by 3 or divisible by 5.', 7, 0, 0),
+(9, 'If n is not divisible by 30 then n is not divisible by 2 or not divisible by 3 or not divisible by 5.', 7, 0, 0),
+(10, 'If n is divisible by 2 and divisible by 3 and divisible by 5 then n is divisible by 30.', 7, 0, 0),
+(11, 'If n is not divisible by 2 or not divisible by 3 or not divisible by 5 then n is not divisible by 30.', 7, 0, 0),
+(12, 'There exists a person who is a computer scientist and who knows both discrete math and Java or there exists a person who is a mathematician and who knows both discrete math and Java.', 8, 0, 0),
+(13, 'There exists a person who is a computer scientist or there exists a person who is a mathematician who knows discrete math or who knows Java.', 8, 0, 1),
+(14, 'There exists a person who is a computer scientist and who knows both discrete math and Java or there exists a mathematician who knows both discrete math and Java.', 8, 0, 0),
+(15, 'There exists a computer scientist who knows both discrete math and Java or there exists a person who is a mathematician who knows both discrete math and Java.', 8, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -236,12 +255,22 @@ CREATE TABLE IF NOT EXISTS `questionbank` (
   `idQUESTIONBANK` int(11) NOT NULL AUTO_INCREMENT,
   `level` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `type` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `content` text COLLATE utf8_unicode_ci,
+  `content` longtext COLLATE utf8_unicode_ci,
   `deleted` tinyint(1) DEFAULT NULL,
   `MODULE_idMODULE` int(11) NOT NULL,
   PRIMARY KEY (`idQUESTIONBANK`),
   KEY `fk_QUESTIONBANK_MODULE1_idx` (`MODULE_idMODULE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `questionbank`
+--
+
+INSERT INTO `questionbank` (`idQUESTIONBANK`, `level`, `type`, `content`, `deleted`, `MODULE_idMODULE`) VALUES
+(1, '2', 'MCQ', 'Consider the statement form p ⇒ q where p =“If Tom is Jane’s father then Jane is Bill’s niece” and q =“Bill is Tom’s brother.” Which of the following statements is equivalent to this statement?', 0, 1),
+(6, '3', 'MCQ', 'sdfds', 0, 2),
+(7, '1', 'MCQ', 'Consider the statement, “If n is divisible by 30 then n is divisible by 2 and by 3 and by 5.” Which of the following statements is equivalent to this statement?', 0, 1),
+(8, '2', 'MCQ', ' Which of the following statements is NOT equivalent to the statement, “There exists either a computer scientist or a mathematician who knows both discrete math and Java.”', 0, 1);
 
 -- --------------------------------------------------------
 
