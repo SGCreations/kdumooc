@@ -2,9 +2,10 @@
 //Sidath
 //23 Sep 2015
 
-include 'require/links.php';
-include 'require/functions.php';
-include 'require/connection.php';
+//include 'require/links.php';
+//include 'require/functions.php';
+//include 'require/connection.php';
+include 'header.php'; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,6 +114,7 @@ include 'require/connection.php';
                         </fieldset>
                     </center>
                 </div>
+                
                 <!-- Modal Lecturer-->
                 <div id="idModalLecturer" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -210,5 +212,8 @@ include 'require/connection.php';
 
             </div>
         </div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <?php include 'footer.php'; ?>
     </body>
+    
 </html>

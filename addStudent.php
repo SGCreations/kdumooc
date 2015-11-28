@@ -3,10 +3,10 @@
 //23 Sep 2015
 //addStudent.php
 
-include 'require/links.php';
-include 'require/functions.php';
-include 'require/messages.php';
-include 'headerGeneral.php';
+//include 'require/links.php';
+//include 'require/functions.php';
+//include 'require/messages.php';
+include 'header.php';
 ?>
 
 <html lang="en">
@@ -249,7 +249,7 @@ include 'headerGeneral.php';
                             </div>
                         </div>
 
-                        <div class="row">
+<!--                        <div class="row">
                             <div class="col-lg-12">
                                 <div class="text-strikethru">
                                     <div class="line"></div>
@@ -257,15 +257,15 @@ include 'headerGeneral.php';
                                 </div>
                                 <a href="fbconfig.php"> <button type="button" class="btn btn-primary" ><i class="fa fa-facebook"></i>&nbsp;&nbsp; Sign up with Facebook</button></a>&nbsp;&nbsp; <a href="twitterconfig.php"> <button type="button" class="btn btn-info" ><i class="fa fa-twitter"></i>&nbsp;&nbsp; Sign up with Twitter</button></a>&nbsp;&nbsp;<a href="googleconfig.php"> <button type="button" class="btn btn-danger" ><i class="fa fa-google-plus"></i>&nbsp;&nbsp; Sign up with Google+</button></a>                       
                             </div>                            
-                        </div>  
+                        </div>  -->
                     </div>
                 </form>
             </center>  
         </div>
-        <footer class="footer">                    
+<!--        <footer class="footer">                    
             <p >&copy; KDUMOOC - 2015</p>
-        </footer>
-        <?php include 'footerGeneral.php'; ?>
+        </footer>-->
+        <?php include 'footer.php'; ?>
     </body>
 </html>
 

@@ -6,17 +6,17 @@
 
 //Module to add a question to the question bank
 //Include header
-
-include 'require/links.php';
-include 'require/functions.php';
-include 'require/connection.php';
+//include 'require/links.php';
+//include 'require/functions.php';
+//include 'require/connection.php';
 
 if (!isset($_GET['course_id'])) {
     header("Location:index.php");
-    
+
     die();
 } else {
     $courseID = $_GET['course_id'];
+    include 'header.php';
 }
 ?>
 <script type="text/javascript">
@@ -82,13 +82,13 @@ if (!isset($_GET['course_id'])) {
             <div class="alert alert-info alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                 <h4><i class="icon fa fa-info"></i> Message</h4>
-                <?php echo $_GET['message'];  ?>
-              </div>
+                <?php echo $_GET['message']; ?>
+            </div>
         <?php } ?>
         <form method="post" action="addQuestion_submit.php"  class="form-horizontal" id="question-form">
 
             <h3>Add Question - MCQ</h3>
-
+            <br/>
             <div class="form-group">
                 <label for="id_modules">Choose Module: </label>
                 <select name="module" id="id_modules" class="form-control">
@@ -156,12 +156,15 @@ if (!isset($_GET['course_id'])) {
                 <button class="btn btn-default" id="cancel">Cancel</button>
                 <button type="submit" class="btn btn-primary">Add Question</button>
             </div>
-            <?php echoHiddenField("courseID", $courseID);  ?>
+            <?php echoHiddenField("courseID", $courseID); ?>
         </form>
 
 
     </div>
 
-
 </div>
+
+<?php include 'footer.php'; ?>
+
+
 

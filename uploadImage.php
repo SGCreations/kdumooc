@@ -6,7 +6,7 @@
  */
 include 'require/config.php';
 
-function uploadImageStudentProfileImage($target_dir, $files, $redirect_path) {
+function uploadImageStudentProfileImage($target_dir, $files, $redirect_path, $new_file_name) {
     var_dump($files);
     echo $target_dir;
     //die();
@@ -14,7 +14,7 @@ function uploadImageStudentProfileImage($target_dir, $files, $redirect_path) {
         //$target_dir = STUDENT_PROFILE_PIC_UPLOAD_URL;
         $target_dir = "images/student-profile-pics/";
     }
-     echo $target_dir;
+    echo $target_dir;
     $target_file = $target_dir . basename($files["fileToUpload"]["name"]);
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
@@ -33,23 +33,25 @@ function uploadImageStudentProfileImage($target_dir, $files, $redirect_path) {
         //echo "Sorry, your file is too large.";
         $error = "Sorry, your file is too large.";
         header($redirect_path);
-        die();
+        //die();
         $uploadOk = 0;
     }
     // Allow certain file formats
     if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
         echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        die();
         $uploadOk = 0;
     }
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
         echo "Sorry, your file was not uploaded.";
-        
+
 // if everything is ok, try to upload file
     } else {
         echo "hello";
-        
+
         if (move_uploaded_file($files["fileToUpload"]["tmp_name"], $target_file)) {
+            rename($target_dir . basename($files["fileToUpload"]["name"]), $target_dir . $new_file_name . "." . $imageFileType);
             echo "The file " . basename($files["fileToUpload"]["name"]) . " has been uploaded.";
             die();
         } else {

@@ -47,6 +47,7 @@ try {
     header("Location:addQuestion.php?course_id=" . $courseID . "&message=" . $success_message_add_question . "&token=" . sha1($success_message_add_question) . "");
 } catch (Exception $e) {
     $dbh->rollBack();
-    echo "Failed: " . $e->getMessage();
+    header("Location:addQuestion.php?course_id=" . $courseID . "&error=" . $failure_message_add_question . "&token=" . sha1($failure_message_add_question) . "");
+    //echo "Failed: " . $e->getMessage();
 }
 ?>

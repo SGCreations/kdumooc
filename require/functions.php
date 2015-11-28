@@ -133,7 +133,7 @@ function doesEmailExist($email, $type, $conn) {
 }
 
 function getVerifiedLecturers($db) {
-    $sql = "SELECT idLecturer, first_name, last_name FROM `lecturer` WHERE `deleted` = 0 AND `activated` = 1 AND `verified` = 1 ORDER BY idLecturer Asc";
+    $sql = "SELECT idLecturer, first_name, last_name FROM `lecturer` WHERE `deleted` = 0 AND `activated` = 1 AND `verified` = 1 ORDER BY first_name Asc";
     $sth = $db->prepare($sql);
     $sth->execute();
     /* Fetch all of the remaining rows in the result set */
@@ -231,6 +231,91 @@ function validateUser($email, $password, $type, $conn) {
         return false;
     }
     $conn->close();
+}
+
+function getUserIDByEmail($username, $type, $db) {
+    if ($type == "L") {
+        $sql = "SELECT idLECTURER FROM `lecturer` WHERE username='$username'";
+    } else {
+        $sql = "SELECT idSTUDENT FROM `student` WHERE username='$username'";
+    }
+    $sth = $db->prepare($sql);
+    $sth->execute();
+
+    $result = $sth->fetchAll();
+    //var_dump($result);
+
+    return $result;
+}
+
+function setSessionVariables($username, $return_id, $type) {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    $_SESSION["username"] = $username;
+    if ($type == "L") {
+        $_SESSION["userID"] = $return_id[0]['idLECTURER'];
+    } else {
+        $_SESSION["userID"] = $return_id[0]['idSTUDENT'];
+    }
+    $_SESSION["type"] = $type;
+    //echo $_SESSION["username"] . " " . $_SESSION["userID"] . " " . $_SESSION["type"];
+}
+
+function sessionExists() {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    if (!isset($_SESSION["userID"])) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function getSessionVariables($request) {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    switch ($request) {
+        case "userID":
+            return $_SESSION["userID"];
+            break;
+        case "username":
+            return $_SESSION["username"];
+            break;
+        case "type":
+            return $_SESSION["type"];
+            break;
+        default:
+            return "Variables undefined!";
+    }
+}
+
+function clearSession() {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    unset($_SESSION["userID"]);
+    unset($_SESSION["username"]);
+    unset($_SESSION["type"]);
+}
+
+function getCourseDetails($courseID, $db) {
+    $sql = "SELECT * FROM `course` WHERE idCOURSE=" . $courseID;
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function doesImageExist($filename){
+    if(file_exists($filename)){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 ?>

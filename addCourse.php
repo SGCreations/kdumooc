@@ -2,10 +2,10 @@
 //Sidath 
 //23 Sep 2015
 //addCourse.php
-
-include 'require/links.php';
-include 'require/functions.php';
-include 'require/messages.php';
+//include 'require/links.php';
+//include 'require/functions.php';
+//include 'require/messages.php';
+include 'header.php';
 ?>
 
 <html lang="en">
@@ -25,6 +25,7 @@ include 'require/messages.php';
                                     rules: {
                                         courseTitle: "required",
                                         category: "required",
+                                        about:"required",
                                         lecturer: {
                                             required: true,
                                         },
@@ -40,6 +41,7 @@ include 'require/messages.php';
                                         }
                                     },
                                     messages: {
+                                        about: "This field is mandatory.",
                                         courseTitle: "This field is mandatory.",
                                         category: "This field is mandatory. Enter a suitable category of the Course, for e.g.: Mathematics, Science etc.",
                                         duration: {
@@ -123,6 +125,15 @@ include 'require/messages.php';
                                 <input type="number"  min="1" max="99" maxlength="2"  class="form-control" id="idDuration" placeholder="Enter the Duration of the Course (No. of Months)" name="duration">
                             </div>
                         </div> 
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="idAbout" >Description:</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="idAbout" rows="15" name="about" placeholder="Enter a Complete Description of the Course"></textarea>
+                            </div>
+                        </div> 
+
+
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="idLecturer" >Select a Lecturer:</label>
                             <div class="col-sm-6">
@@ -146,15 +157,15 @@ include 'require/messages.php';
                         </div>
                     </div>
                 </form>
-                <footer class="footer">                    
-                    <p >&copy; KDUMOOC - 2015</p>
-                </footer>
+                <!--                <footer class="footer">                    
+                                    <p >&copy; KDUMOOC - 2015</p>
+                                </footer>-->
         </div>
 
 
     </center>
 </div>
-
+<?php include 'footer.php'; ?>
 </body>
 </html>
 

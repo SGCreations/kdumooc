@@ -2,11 +2,8 @@
 //Sidath 
 //23 Sep 2015
 //addLecturer.php
-
-include 'require/links.php';
-include 'require/functions.php';
-include 'require/messages.php';
 include 'sendMail.php';
+include 'header.php';
 ?>
 
 <html lang="en">
@@ -250,23 +247,21 @@ include 'sendMail.php';
                             </div>
                         </div>
 
-<!--                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="text-strikethru">
-                                    <div class="line"></div>
-                                    <div class="text">or</div>
-                                </div>
-                                <a href="fbconfig.php"> <button type="button" class="btn btn-primary" ><i class="fa fa-facebook"></i>&nbsp;&nbsp; Sign up with Facebook</button></a>&nbsp;&nbsp; <a href="twitterconfig.php"> <button type="button" class="btn btn-info" ><i class="fa fa-twitter"></i>&nbsp;&nbsp; Sign up with Twitter</button></a>&nbsp;&nbsp;<a href="googleconfig.php"> <button type="button" class="btn btn-danger" ><i class="fa fa-google-plus"></i>&nbsp;&nbsp; Sign up with Google+</button></a>                       
-                            </div>
-                        </div>-->
+                        <!--                        <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="text-strikethru">
+                                                            <div class="line"></div>
+                                                            <div class="text">or</div>
+                                                        </div>
+                                                        <a href="fbconfig.php"> <button type="button" class="btn btn-primary" ><i class="fa fa-facebook"></i>&nbsp;&nbsp; Sign up with Facebook</button></a>&nbsp;&nbsp; <a href="twitterconfig.php"> <button type="button" class="btn btn-info" ><i class="fa fa-twitter"></i>&nbsp;&nbsp; Sign up with Twitter</button></a>&nbsp;&nbsp;<a href="googleconfig.php"> <button type="button" class="btn btn-danger" ><i class="fa fa-google-plus"></i>&nbsp;&nbsp; Sign up with Google+</button></a>                       
+                                                    </div>
+                                                </div>-->
 
                     </div>
                 </form>
-                <footer class="footer">                    
-                    <p >&copy; KDUMOOC - 2015</p>
-                </footer>
-        </div>
 
+        </div>
+        <?php include 'footer.php'; ?>
 
     </center>
 </div>

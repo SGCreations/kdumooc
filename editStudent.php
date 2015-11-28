@@ -16,7 +16,7 @@ if (!isset($_GET['studentID'])) {
         die();
     }
 }
-include 'headerGeneral.php';
+
 ?>
 
 <html lang="en">
@@ -90,7 +90,7 @@ include 'headerGeneral.php';
                     echo "</div>";
                 }
                 ?>
-                <form class="form-horizontal" enctype="multipart/form-data" id="register-form" novalidate="novalidate" action='editStudent_submit.php' method="post"> 
+                <form class="form-horizontal" enctype="multipart/form-data" id="register-form" action='editStudent_submit.php' method="post"> 
                     <div class="col-lg-12">
                         <input type="hidden" value="<?php echo $student_details[0]['idSTUDENT'] ?>" name="studentID"/>
                         <div class="form-group">
@@ -160,7 +160,7 @@ include 'headerGeneral.php';
                 </form>
             </center>  
         </div>
-        <?php include 'footerGeneral.php'; ?>
+        
     </body>
 </html>
 
