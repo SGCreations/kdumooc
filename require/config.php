@@ -24,6 +24,10 @@ if (!defined('DB_PASSWORD')) {
 if (!defined('DB_HOST')) {
     define('DB_HOST', 'localhost');
 }
+
+if (!defined('DSN')) {
+    define('DSN', 'mysql:dbname=' . DB_NAME . ';host=' . DB_HOST);
+}
 // ** End of MySQL settings ** //
 
 /* The path where KDUMOOC is hosted */
@@ -36,9 +40,19 @@ if (!defined('STUDENT_PROFILE_PIC_UPLOAD_URL')) {
     define('STUDENT_PROFILE_PIC_UPLOAD_URL', DOMAIN_URL . "/images/student-profile-pics/");
 }
 
+if (!defined('LECTURER_PROFILE_PIC_UPLOAD_URL')) {
+    define('LECTURER_PROFILE_PIC_UPLOAD_URL', "images/lecturer-profile-pics/");
+}
+
 if (!defined('COURSE_PIC_UPLOAD_URL')) {
     define('COURSE_PIC_UPLOAD_URL', "images/courses/");
 }
+
+
+/*Locale settings*/
+date_default_timezone_set('Asia/Colombo');
+/*End of locale settings*/
+
 
 /* E-Mail Settings */
 if (!defined('E_MAIL_HOST')) {

@@ -24,9 +24,15 @@ include 'require/connection.php';
 
             <?php
             if (sessionExists()) {
+                if (isStudent()) {
+                    $href_link = "editStudent.php?studentID=" . getSessionVariables("userID") . "&token=" . sha1(getSessionVariables("userID"));
+                } else {
+                    $href_link = "editLecturer.php?lecturerID=" . getSessionVariables("userID") . "&token=" . sha1(getSessionVariables("userID"));
+                }
                 ?>  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span><?php echo " " . getSessionVariables("username") ?> </a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span><?php
+
+                    <li><a target="new" data-toggle="tooltip" data-placement="bottom" title="Edit your profile" data-original-title=""  href="<?php echo $href_link; ?>"><span class="glyphicon glyphicon-user"></span><?php echo " " . getSessionVariables("username") ?> </a></li>
+                    <li><a target="new" data-toggle="tooltip" data-placement="bottom" title="Sign out of KDUMOOC" href="signOut.php"><span class="glyphicon glyphicon-log-in"></span><?php
                             echo " You are logged in as a ";
                             if (getSessionVariables("type") == "L") {
                                 echo "Lecturer";
@@ -37,7 +43,12 @@ include 'require/connection.php';
                 </ul> <?php } else {
                             ?>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href=""><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Sign Up<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/kdumooc/addStudent.php">As a Student</a></li>
+                            <li><a href="/kdumooc/addLecturer.php">As a Lecturer</a></li>                                                          </ul>
+                    </li>
                     <li><a href="/kdumooc/signInMain.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </ul>
                 <?php

@@ -6,6 +6,7 @@
 
 include 'header.php';
 ?>
+<title>All Courses</title>
 <style type="text/css">
     .disabled{
         /*font-size: 160%;*/
@@ -38,7 +39,7 @@ include 'header.php';
 try {
 
     // Find out how many items are in the table
-    $total = $db->query('SELECT COUNT(*) FROM `course`')->fetchColumn();
+    $total = $db->query('SELECT COUNT(*) FROM `course` WHERE `deleted`=0')->fetchColumn();
 
     // How many items to list per page
     $limit = 3;
@@ -65,11 +66,11 @@ try {
     <div class="container"><center>
             <?php
             // Display the paging information
-            echo '<div id="paging"  class="well well-sm"><h5>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </h5></div>';
+            echo '<div id="paging"  class="well well-sm"><h5>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </h5><p><span class="label label-info"><i class="fa fa-info"></i><i>&nbsp;&nbsp;You have to be logged in to register for course.</i></p></span></div>';
             echo "</center>";
             // Prepare the paged query
             //$stmt = $db->prepare('SELECT * FROM `course` ORDER BY idCOURSE LIMIT :limit OFFSET :offset');
-            $stmt = $db->prepare("SELECT `idCOURSE`,`category`,`duration`, `LECTURER_idLECTURER`,`title`, substring_index(`about`,' ',500) as short_desc FROM `course` ORDER BY `course`.`idCOURSE` ASC LIMIT :limit OFFSET :offset");
+            $stmt = $db->prepare("SELECT `idCOURSE`,`category`,`duration`, `LECTURER_idLECTURER`,`title`, substring_index(`about`,' ',500) as short_desc FROM `course` WHERE `deleted`=0 ORDER BY `course`.`idCOURSE` ASC LIMIT :limit OFFSET :offset");
             // Bind the query params
             $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -86,7 +87,7 @@ try {
                 // Display the results
                 foreach ($iterator as $row) {
                     //echo "<div class=\"container\">";
-                   
+
                     echo '<div class=\'well well-lg centered\'>';
                     echo "<h4>" . $row['title'] . "</h4>";
                     //echo "<br>";
@@ -99,17 +100,47 @@ try {
                     echo "<div style=\"text-align:justify;\"> <br/>" . $img_url . "<p>Description: " . $row['short_desc'] . "..." . "</p></div>";
                     //echo '<p>', $row['idCOURSE'], '</p>';
                     //echo "<img  width=\"100px\"  height=\"100px\" src=\"" . COURSE_PIC_UPLOAD_URL . $row['idCOURSE'] . ".jpg" . "\"/>";
-                    echo "</div>";
-                     echo "<hr>";
+
+                    if (sessionExists()) {
+                        $logged_in = true;
+                    } else {
+                        $logged_in = false;
+                    }
+                    if (isStudent()) {
+                        $is_student = true;
+                    } else {
+                        $is_student = false;
+                    }
+                    ?>
+                    <div class="btn-group" role="group" aria-label="Course Actions">
+                        <?php
+                        if ($logged_in && $is_student) {
+                            echo "<a href=\"registerForCourse.php?studentID=" . $_SESSION['userID'] . "&token=". sha1($_SESSION['userID']) ."&courseID=" . $row['idCOURSE'] . "\" target=\"new\">";
+                            echo "<button type=\"button\" class=\"btn btn-success active\">Register For Course</button></a>";
+                        } else {
+                            echo "<button type=\"button\" class=\"btn btn-success disabled\">Register For Course</button>";
+                        }
+            echo "<a href=\"viewCourse.php?courseID=" . $row['idCOURSE'] . "&token=" . sha1($row['idCOURSE']) . "\" target=\"new\"><button type=\"button\" class=\"btn btn-file\">View Course</button></a>";
+
+                        if ($logged_in && $is_student == false) {
+                            echo "<a href=\"editCourse.php?courseID=" . $row['idCOURSE'] . "&token=" . sha1($row['idCOURSE']) . "\" target=\"new\"><button type=\"button\" class=\"btn btn-default\">Edit Course</button></a>";
+                        } else {
+                            echo "<button type=\"button\" class=\"btn btn-default disabled\">Edit Course</button>";
+                        }
+                        ?>                     
+                    </div>
+                        <?php
+                        echo "</div>";
+                        echo "<hr>";
+                    }
+                } else {
+                    echo '<p>No results could be displayed.</p>';
                 }
-            } else {
-                echo '<p>No results could be displayed.</p>';
-            }
-            ?>
+                ?>
     </div>
-    <?php
-} catch (Exception $e) {
-    echo '<p>', $e->getMessage(), '</p>';
-}
-?>
+            <?php
+        } catch (Exception $e) {
+            echo '<p>', $e->getMessage(), '</p>';
+        }
+        ?>
 <?php include 'footer.php'; ?>

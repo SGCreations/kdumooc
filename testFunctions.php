@@ -22,7 +22,9 @@ $courseTitle = "Discrete Mathematics 2";
 //echo "<h1>" . doesEmailExist('sinhalokaya@gmail.com',$conn) . "</h1>";
 //session_start();
 //echo $_SESSION["username"] . " " . $_SESSION["userID"] . " " . $_SESSION["type"];
-clearSession();
+//clearSession();
+
+echo date("Y-m-d H:i:s");  
 ?>
 <br/>
 <div class="container">

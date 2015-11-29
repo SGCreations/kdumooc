@@ -18,4 +18,9 @@ $error_sending_email = "There was an error in sending the activation email to th
 $success_message_activate_lecturer = "Your account has been activated successfully!";
 $success_message_add_question = "Question added successfully!";
 $failure_message_add_question = "There was an error in adding the question to the database. Please retry.";
+$welcome_message = "Welcome to KDUMOOC! You're now logged in";
+$sign_out_success = "You have successfully signed out of KDUMOOC.";
+$already_registered_for_course = "You are already registered in the selected course!";
+$course_registration_success = "You have been successfully registered in the selected course.";
+$not_signed_up_for_courses = "You haven't signed up for any courses yet.";
 ?>

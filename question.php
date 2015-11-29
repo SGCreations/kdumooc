@@ -1,4 +1,4 @@
-<?php
+local<?php
 //Sidath 
 //15 Sep 2015
 //As of now, the no. of answers available per question is set to 4.

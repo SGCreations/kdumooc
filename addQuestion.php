@@ -65,6 +65,7 @@ if (!isset($_GET['course_id'])) {
         });
     });
 </script>
+<title>Add Question to Module</title>
 <div class="container">
     <div class="col-lg-12">
         <?php
@@ -85,6 +86,7 @@ if (!isset($_GET['course_id'])) {
                 <?php echo $_GET['message']; ?>
             </div>
         <?php } ?>
+        
         <form method="post" action="addQuestion_submit.php"  class="form-horizontal" id="question-form">
 
             <h3>Add Question - MCQ</h3>
@@ -139,7 +141,6 @@ if (!isset($_GET['course_id'])) {
             </div>
             <div class="form-group">
                 <p>Choose the correct answer:</p>
-
                 <input type="radio" name="name_answer_selection" id="answer_selection_1" value="Answer 1" checked="checked">
                 <label for="answer_selection_1" class="control-label">Answer 1</label>
                 <br/>

@@ -1,11 +1,10 @@
 <?php
 //Sidath
 //23 Sep 2015
-
 //include 'require/links.php';
 //include 'require/functions.php';
 //include 'require/connection.php';
-include 'header.php'; 
+include 'header.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,6 +88,24 @@ include 'header.php';
                 position: relative;
                 color: #828587;
             }
+
+            .parent_div_1{
+                text-align:center;
+                width: 40%;
+                margin: 0 auto;
+
+            }
+
+            .child_div_1{
+                float:left;
+                margin-right:5px;
+
+            }
+            .child_div_2{
+                float:right;
+                margin-right:5px;
+
+            }            
         </style>
     </head>
     <body>
@@ -104,17 +121,19 @@ include 'header.php';
             }
             ?>
             <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <center>
-                        <fieldset>
-                            <legend>Sign in as a:</legend>                        
+                <fieldset>
+                    <center><legend>Sign in as a:</legend>  </center> 
+                    <div class="parent_div_1">
+                        <div class="child_div_1">
+                            <a href="#"><img src="images/avatars/lecturer-login.jpg" data-toggle="modal" data-target="#idModalLecturer" width="200px" height="200px"/></a><br/><br/>
                             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idModalLecturer">Lecturer</button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idModalStudent">Student</button>              
-                        </fieldset>
-                    </center>
-                </div>
-                
+                        </div>
+                        <div class="child_div_2">
+                            <a href="#"><img data-toggle="modal" data-target="#idModalStudent" src="images/avatars/student-login.jpg" width="200px" height="200px"/></a><br/><br/>
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idModalStudent">Student</button>  
+                        </div>
+                    </div>
+                </fieldset>
                 <!-- Modal Lecturer-->
                 <div id="idModalLecturer" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -215,5 +234,5 @@ include 'header.php';
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <?php include 'footer.php'; ?>
     </body>
-    
+
 </html>

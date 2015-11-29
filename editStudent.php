@@ -2,10 +2,11 @@
 //Sidath 
 //23 Sep 2015
 //addStudent.php
-include 'require/links.php';
-include 'require/functions.php';
-include 'require/messages.php';
-if (!isset($_GET['studentID'])) {
+//include 'require/links.php';
+//include 'require/functions.php';
+//include 'require/messages.php';
+include 'header.php';
+if (!isset($_GET['studentID']) || (sha1($_GET['studentID']) != $_GET['token'])) {
     header("Location:index.php?message=" . $invalid_request . "&token=" . sha1($invalid_request) . "");
     die();
 } else {
@@ -16,7 +17,6 @@ if (!isset($_GET['studentID'])) {
         die();
     }
 }
-
 ?>
 
 <html lang="en">
@@ -160,9 +160,11 @@ if (!isset($_GET['studentID'])) {
                 </form>
             </center>  
         </div>
-        
+
     </body>
+    <?php include 'footer.php'; ?>
 </html>
+
 
 
 

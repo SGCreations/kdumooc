@@ -4,7 +4,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-include 'require/connection.php';
+include 'config.php';
+include 'connection.php';
 
 function createAnswerArray($no_of_answers) {
     for ($i = 0; $i < $no_of_answers; $i++) {
@@ -18,7 +19,6 @@ function getModuleList($course_id, $db) {
     $sth->execute();
 
     /* Fetch all of the remaining rows in the result set */
-    print("Fetch all of the remaining rows in the result set:\n");
     $result = $sth->fetchAll();
     //var_dump($result);
 
@@ -31,7 +31,6 @@ function getModuleDetails($course_id, $db) {
     $sth->execute();
 
     /* Fetch all of the remaining rows in the result set */
-    print("Fetch all of the remaining rows in the result set:\n");
     $result = $sth->fetchAll();
     //var_dump($result);
 
@@ -302,19 +301,162 @@ function clearSession() {
 }
 
 function getCourseDetails($courseID, $db) {
-    $sql = "SELECT * FROM `course` WHERE idCOURSE=" . $courseID;
+    $sql = "SELECT * FROM `course` WHERE `deleted`=0 AND `idCOURSE`=" . $courseID;
     $sth = $db->prepare($sql);
     $sth->execute();
     $result = $sth->fetchAll();
     return $result;
 }
 
-function doesImageExist($filename){
-    if(file_exists($filename)){
+function doesImageExist($filename) {
+    if (file_exists($filename)) {
         return true;
-    }
-    else{
+    } else {
         return false;
+    }
+}
+
+function isStudent() {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    if (isset($_SESSION['type'])) {
+        if ($_SESSION['type'] == "L") {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+function loadCourseDetails($courseID, $db) {
+    $sql = "SELECT * FROM `course` where `idCOURSE`=$courseID AND `deleted`=0";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    /* Fetch all of the remaining rows in the result set */
+    //print("Fetch all of the remaining rows in the result set:\n");
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function isStudentRegisteredForCourse($studentID, $courseID, $db) {
+    $sql = "SELECT * FROM `registers` WHERE `STUDENT_idSTUDENT`=$studentID AND `COURSE_idCOURSE`=$courseID";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function registerStudentForCourse($studentID, $courseID, $db) {
+    $currentDateTime = date("Y-m-d H:i:s");
+    $sql = "INSERT INTO `kdumooc`.`registers` (`STUDENT_idSTUDENT`, `COURSE_idCOURSE`, `start_date`, `end_date`) VALUES ('    $studentID', '$courseID', '$currentDateTime', NULL);";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+}
+
+function getCoursesOfStudent($studentID, $db) {
+    $sql = "SELECT * FROM `course`,`registers` WHERE `STUDENT_idSTUDENT`=$studentID AND `registers`.`COURSE_idCOURSE`=`course`.`idCOURSE`";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function getCoursesOfLecturer($lecturerID, $db) {
+    $sql = "SELECT `title` FROM `course` ORDER BY `LECTURER_idLECTURER` =$lecturerID";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function initiateAssignment($studentID, $db) {
+    try {
+        $date_time = date("Y-m-d H:i:s");
+        $dbh = new PDO(DSN, DB_USER, DB_PASSWORD, array(PDO::ATTR_PERSISTENT => true));
+        echo "Connection Successful.";
+    } catch (Exception $e) {
+        die("Unable to connect to database: " . $e->getMessage());
+    }
+    try {
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $dbh->beginTransaction();
+        $dbh->exec("INSERT INTO `kdumooc`.`assignment` (`idASSIGNMENT`, `STUDENT_idSTUDENT`, `timestamp`) VALUES (NULL, '$studentID', '$date_time');");
+        $last_id = $dbh->lastInsertId();
+        $dbh->commit();
+        return $last_id;
+    } catch (Exception $e) {
+        $dbh->rollBack();
+        header("Location:index.php");
+        die();
+    }
+}
+
+function getRandomQuestionFromModule($moduleID, $level, $db) {
+    $sql = "SELECT `idQUESTIONBANK`,`level` FROM `questionbank` WHERE `questionbank`.`MODULE_idMODULE`=$moduleID AND `level`=$level ORDER BY RAND() LIMIT 1";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function getAnswersByQuestionID($questionID, $db) {
+    $sql = "SELECT * FROM `answer` WHERE `QUESTIONBANK_idQUESTIONBANK` = $questionID";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function getModuleDetailsByID($moduleID, $db) {
+    $sql = "SELECT * FROM `module` WHERE `idMODULE` = $moduleID";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function getQuestionContent($questionID, $db) {
+    $sql = "SELECT `content` FROM `questionbank` WHERE `idQUESTIONBANK`=$questionID";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function isCorrectAnswer($answerID, $db) {
+    $sql = "SELECT `correct_answer` FROM `answer` WHERE `idANSWER`=$answerID";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    if ($result[0]['correct_answer'] == 1) {
+        return "1";
+    } else {
+        return "0";
+    }
+}
+
+function insertIntoAttempt($validity, $assignmentID, $questionID) {
+    $sql = "INSERT INTO `kdumooc`.`attempt` (`idATTEMPT`, `validity`, `ASSIGNMENT_idASSIGNMENT`, `QUESTIONBANK_idQUESTIONBANK`) VALUES (NULL, '$validity', '$assignmentID', '$questionID');";
+    try {
+        $date_time = date("Y-m-d H:i:s");
+        $dbh = new PDO(DSN, DB_USER, DB_PASSWORD, array(PDO::ATTR_PERSISTENT => true));
+        echo "Connection Successful.";
+    } catch (Exception $e) {
+        die("Unable to connect to database: " . $e->getMessage());
+    }
+    try {
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $dbh->beginTransaction();
+        $dbh->exec($sql);
+        $dbh->commit();
+        return true;
+    } catch (Exception $e) {
+        $dbh->rollBack();
+//        echo $e->getMessage();
+//        echo $e->getTrace();
+        //header("Location:index.php");
+        die();
     }
 }
 
