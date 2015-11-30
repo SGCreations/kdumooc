@@ -19,7 +19,7 @@ include 'require/connection.php';
         <div>
             <ul class="nav navbar-nav">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="index.php#courses">Courses</a></li>                   
+                <li><a href="viewAllCourses.php" target="_blank">Courses</a></li>                   
             </ul>
 
             <?php

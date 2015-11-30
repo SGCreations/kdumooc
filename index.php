@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <?php include 'require/links.php'; ?>
+        <?php
+        include 'require/links.php';
+        include 'require/functions.php';
+        ?>
         <title>KDUMOOC</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
@@ -66,6 +69,19 @@
 
                         <div class="navbar-collapse collapse" id="templatemo-nav-bar">
                             <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
+                                <?php
+//                                $type = getSessionVariables("type");
+//                                if ($type == "S") {
+//                                    $url_dashboard = "/kdumooc/userDashboardStudent.php";
+//                                } else if ($type == "L") {
+//                                    $url_dashboard = "/kdumooc/courseDashboardLecturer.php?courseID=1";
+//                                } else {
+//                                    $url_dashboard = "#";
+//                                }
+                                $url_dashboard = "/kdumooc/userDashboardStudent.php";
+                                ?>
+
+                                <li><a href="<?php echo $url_dashboard; ?>">MY DASHBOARD</a></li>
                                 <li><a href="#courses">COURSES</a></li>
                                 <li><a href="/kdumooc/signInMain.php">SIGN IN</a></li>
 
@@ -121,7 +137,7 @@
                             </div>                            
                         </div>                       
                     </div>
-                     <div class="item 1">
+                    <div class="item 1">
                         <div class="container">
                             <div class="carousel-caption">
                                 <h1>ALL COURSES FROM HOME!</h1>
@@ -139,7 +155,7 @@
                     </div>
                 </div><!-- /#templatemo-carousel -->
             </div>
-            
+
             <div id="courses" >
                 <div class="container">
                     <div class="row">
@@ -163,60 +179,60 @@
                                 <a class="colorbox" href="images/full-gallery-image-1.jpg" data-group="gallery-graphic">
                                     <div class="templatemo-project-box">
 
-                                        <img src="images/gallery-image-1.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/16.jpg" class="img-responsive" alt="gallery" />
 
                                         <div class="project-overlay">
-                                            <h5>Graphic</h5>
+                                            <h5>Semester II</h5>
                                             <hr />
-                                            <h4>TEA POT</h4>
+                                            <h4>Object Oriented Programming</h4>
                                         </div>
                                     </div>
                                 </a>
                             </li>
                             <li class="col-lg-2 col-md-2 col-sm-2  gallery gallery-creative" >
-                                <a class="colorbox" href="images/full-gallery-image-2.jpg" data-group="gallery-creative">
+                                <a class="colorbox" href="images/courses/1.jpg" data-group="gallery-creative">
                                     <div class="templatemo-project-box">
-                                        <img src="images/gallery-image-2.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/10.jpg" class="img-responsive" alt="gallery" />
                                         <div class="project-overlay">
-                                            <h5>Creative</h5>
+                                            <h5>Semester I</h5>
                                             <hr />
-                                            <h4>BREAKFAST</h4>
+                                            <h4>Digital Electronics</h4>
                                         </div>
                                     </div>
                                 </a>
                             </li>
                             <li class="col-lg-2 col-md-2 col-sm-2  gallery gallery-inspiration" >
-                                <a class="colorbox" href="images/full-gallery-image-3.jpg" data-group="gallery-inspiration">
+                                <a class="colorbox" href="images/courses/2.jpg" data-group="gallery-inspiration">
                                     <div class="templatemo-project-box">
-                                        <img src="images/gallery-image-3.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/2.jpg" class="img-responsive" alt="gallery" />
                                         <div class="project-overlay">
-                                            <h5>Inspiration</h5>
+                                            <h5>Semester I</h5>
                                             <hr />
-                                            <h4>GREEN COLORS</h4>
+                                            <h4>Discrete Mathematics I</h4>
                                         </div>
                                     </div>
                                 </a>
                             </li>
                             <li class="col-lg-2 col-md-2 col-sm-2  gallery gallery-design" >
-                                <a class="colorbox" href="images/full-gallery-image-4.jpg" data-group="gallery-design">
+                                <a class="colorbox" href="images/courses/14.jpg" data-group="gallery-design">
                                     <div class="templatemo-project-box">
-                                        <img src="images/gallery-image-4.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/11.jpg" class="img-responsive" alt="gallery" />
                                         <div class="project-overlay">
-                                            <h5>Web Design</h5>
+                                            <h5>Semester II</h5>
                                             <hr />
-                                            <h4>CAMERA</h4>
+                                            <h4>Software Engineering II</h4>
                                         </div>
                                     </div>
                                 </a>
                             </li>
                             <li class="col-lg-2 col-md-2 col-sm-2  gallery gallery-inspiration" >
-                                <a class="colorbox" href="images/full-gallery-image-5.jpg" data-group="gallery-inspiration">
+                                <a class="colorbox" href="images/courses/12.jpg" data-group="gallery-inspiration">
                                     <div class="templatemo-project-box">
-                                        <img src="images/gallery-image-5.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/13.jpg" class="img-responsive" alt="gallery" />
                                         <div class="project-overlay">
-                                            <h5>Inspiration</h5>
+                                            <h5>Semester II</h5>
                                             <hr />
-                                            <h4>PLANT</h4>
+                                            <h4>Web Technology</h4>
                                         </div>
                                     </div>
                                 </a>
@@ -224,24 +240,24 @@
                             <li class="col-lg-2 col-md-2 col-sm-2  gallery gallery-inspiration" >
                                 <a class="colorbox" href="images/full-gallery-image-6.jpg" data-group="gallery-inspiration">
                                     <div class="templatemo-project-box">
-                                        <img src="images/gallery-image-6.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/15.jpg" class="img-responsive" alt="gallery" />
                                         <div class="project-overlay">
-                                            <h5>Inspiration</h5>
+                                            <h5>Semester I</h5>
                                             <hr />
-                                            <h4>CABLE TRAIN</h4>
+                                            <h4>Probability and Statistics</h4>
                                         </div>
                                     </div>
                                 </a>
                             </li>
 
                             <li class="col-lg-2 col-md-2 col-sm-2 gallery gallery-design" >
-                                <a class="colorbox" href="images/full-gallery-image-7.jpg" data-group="gallery-design">
+                                <a class="colorbox" href="images/courses/14.jpg" data-group="gallery-design">
                                     <div class="templatemo-project-box">
-                                        <img src="images/gallery-image-7.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/3.jpg" class="img-responsive" alt="gallery" />
                                         <div class="project-overlay">
-                                            <h5>Web Design</h5>
+                                            <h5>Semester II</h5>
                                             <hr />
-                                            <h4>CITY</h4>
+                                            <h4>Discrete Mathematics II</h4>
                                         </div>
                                     </div>
                                 </a>
@@ -250,11 +266,11 @@
                             <li class="col-lg-2 col-md-2 col-sm-2 gallery gallery-creative" >
                                 <a class="colorbox" href="images/full-gallery-image-8.jpg" data-group="gallery-creative">
                                     <div class="templatemo-project-box">
-                                        <img src="images/gallery-image-8.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/12.jpg" class="img-responsive" alt="gallery" />
                                         <div class="project-overlay">
-                                            <h5>Creative</h5>
+                                            <h5>Semester II</h5>
                                             <hr />
-                                            <h4>BIRDS</h4>
+                                            <h4>Database Management Systems</h4>
                                         </div>
                                     </div>
                                 </a>
@@ -263,11 +279,11 @@
                             <li class="col-lg-2 col-md-2 col-sm-2 gallery gallery-graphic" >
                                 <a class="colorbox" href="images/full-gallery-image-9.jpg" data-group="gallery-graphic">
                                     <div class="templatemo-project-box">
-                                        <img src="images/gallery-image-9.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/14.jpg" class="img-responsive" alt="gallery" />
                                         <div class="project-overlay">
-                                            <h5>Graphic</h5>
+                                            <h5>Semester I</h5>
                                             <hr />
-                                            <h4>NATURE</h4>
+                                            <h4>Fundamentals of Programming</h4>
                                         </div>
                                     </div>
                                 </a>
@@ -276,11 +292,11 @@
                             <li class="col-lg-2 col-md-2 col-sm-2 gallery gallery-inspiration" >
                                 <a class="colorbox" href="images/full-gallery-image-10.jpg" data-group="gallery-inspiration">
                                     <div class="templatemo-project-box">
-                                        <img src="images/gallery-image-10.jpg" class="img-responsive" alt="gallery" />
+                                        <img src="images/courses/9.jpg" class="img-responsive" alt="gallery" />
                                         <div class="project-overlay">
-                                            <h5>Inspiration</h5>
+                                            <h5>Semester I</h5>
                                             <hr />
-                                            <h4>DOGGY</h4>
+                                            <h4>Software Engineering I</h4>
                                         </div>
                                     </div>
                                 </a>
@@ -292,6 +308,7 @@
                     <br><br><br> <br><br><br>
                 </div><!-- /.container -->
             </div> <!-- /.templatemo-portfolio -->
+
 
 
 
@@ -310,7 +327,7 @@
                         <li class="col-lg-3 col-md-3 col-sm-6 ">
                             <div class="text-center">
                                 <div class="member-thumb">
-                                    <img src="images/member1.jpg" class="img-responsive" alt="member 1" />
+                                    <img src="images/lecturer-profile-pics/3.jpg" class="img-responsive" alt="member 1" />
                                     <div class="thumb-overlay">
                                         <a href="#"><span class="social-icon-fb"></span></a>
                                         <a href="#"><span class="social-icon-twitter"></span></a>
@@ -318,15 +335,15 @@
                                     </div>
                                 </div>
                                 <div class="team-inner">
-                                    <p class="team-inner-header">TRACY</p>
-                                    <p class="team-inner-subtext">Designer</p>
+                                    <p class="team-inner-header">Prof. Asoka Karunananda</p>
+                                    <p class="team-inner-subtext">Dean</p>
                                 </div>
                             </div>
                         </li>
                         <li class="col-lg-3 col-md-3 col-sm-6 ">
                             <div class="text-center">
                                 <div class="member-thumb">
-                                    <img src="images/member2.jpg" class="img-responsive" alt="member 2" />
+                                    <img src="images/lecturer-profile-pics/8.jpg" class="img-responsive" alt="member 2" />
                                     <div class="thumb-overlay">
                                         <a href="#"><span class="social-icon-fb"></span></a>
                                         <a href="#"><span class="social-icon-twitter"></span></a>
@@ -334,15 +351,15 @@
                                     </div>
                                 </div>
                                 <div class="team-inner">
-                                    <p class="team-inner-header">MARY</p>
-                                    <p class="team-inner-subtext">Developer</p>
+                                    <p class="team-inner-header">Asela Gunasekera</p>
+                                    <p class="team-inner-subtext">Head of Department</p>
                                 </div>
                             </div>
                         </li>
                         <li class="col-lg-3 col-md-3 col-sm-6 ">
                             <div class="text-center">
                                 <div class="member-thumb">
-                                    <img src="images/member3.jpg" class="img-responsive" alt="member 3" />
+                                    <img src="images/lecturer-profile-pics/2.jpg" class="img-responsive" alt="member 3" />
                                     <div class="thumb-overlay">
                                         <a href="#"><span class="social-icon-fb"></span></a>
                                         <a href="#"><span class="social-icon-twitter"></span></a>
@@ -350,15 +367,15 @@
                                     </div>
                                 </div>
                                 <div class="team-inner">
-                                    <p class="team-inner-header">JULIA</p>
-                                    <p class="team-inner-subtext">Director</p>
+                                    <p class="team-inner-header">Nandana Pathirage</p>
+                                    <p class="team-inner-subtext">Head of Department</p>
                                 </div>
                             </div>
                         </li>
                         <li class="col-lg-3 col-md-3 col-sm-6 ">
                             <div class="text-center">
                                 <div class="member-thumb">
-                                    <img src="images/member4.jpg" class="img-responsive" alt="member 4" />
+                                    <img src="images/lecturer-profile-pics/1.jpg" class="img-responsive" alt="member 4" />
                                     <div class="thumb-overlay">
                                         <a href="#"><span class="social-icon-fb"></span></a>
                                         <a href="#"><span class="social-icon-twitter"></span></a>
@@ -366,14 +383,16 @@
                                     </div>
                                 </div>
                                 <div class="team-inner">
-                                    <p class="team-inner-header">LINDA</p>
-                                    <p class="team-inner-subtext">Manager</p>
+                                    <p class="team-inner-header">Neranjaka Jayarathne</p>
+                                    <p class="team-inner-subtext">Lecturer</p>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
-            </div><!-- /.templatemo-team -->
+            </div> 
+
+            <!--            /.templatemo-team -->
 
 
 

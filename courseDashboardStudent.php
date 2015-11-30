@@ -152,15 +152,15 @@ if (!sessionExists() || !isStudent()) {
                         <li class="header"><center>COURSE ADMINISTRATION</center></li>
                         <li><?php echo"<a href=\"courseDashboardStudentAnnouncements.php?courseID=" . $courseID . "&token=" . sha1($courseID) . "\">"; ?><i class="fa fa-bullhorn"></i> <span>Announcements</span></a></li>
                         <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Course Schedule</span></a></li>
-                        <li><a href="documentation/index.html"><i class="fa fa-ticket"></i> <span>Tips for Working in KDUMOOC</span></a></li>
+                        <li><?php echo"<a href=\"courseDashboardStudentTips.php?moduleID=1&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-ticket"></i> <span>Tips for Working in KDUMOOC</span></a></li>
                         <li class="active treeview">
                             <a href="#">
                                 <i class="fa fa-dashboard"></i> <span>Modules</span> <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="index.html"><i class="fa fa-circle-o"></i>The Foundations: Logic and <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Proofs</a></li>
-                                <li><a href="index2.html"><i class="fa fa-circle-o"></i>Basic Structures: Sets, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Functions, Sequences, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sums, and Matrices</a></li>
-                                <li><a href="index2.html"><i class="fa fa-circle-o"></i>Induction and Recursion</a></li>
+                                <li><?php echo"<a href=\"courseDashboardStudentModules.php?moduleID=1&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-circle-o"></i>The Foundations: Logic and <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Proofs</a></li>
+                                <li><?php echo"<a href=\"courseDashboardStudentModules.php?moduleID=2&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-circle-o"></i>Basic Structures: Sets, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Functions, Sequences, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sums, and Matrices</a></li>
+                                <li><?php echo"<a href=\"courseDashboardStudentModules.php?moduleID=3&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-circle-o"></i>Induction and Recursion</a></li>
 
                             </ul>
                         </li>

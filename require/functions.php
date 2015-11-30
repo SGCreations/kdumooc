@@ -262,13 +262,17 @@ function setSessionVariables($username, $return_id, $type) {
 }
 
 function sessionExists() {
-    if (!isset($_SESSION)) {
-        session_start();
-    }
-    if (!isset($_SESSION["userID"])) {
-        return false;
-    } else {
-        return true;
+    try {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        if (!isset($_SESSION["userID"])) {
+            return false;
+        } else {
+            return true;
+        }
+    } catch (Exception $e) {
+        
     }
 }
 
@@ -292,12 +296,16 @@ function getSessionVariables($request) {
 }
 
 function clearSession() {
-    if (!isset($_SESSION)) {
-        session_start();
+    try {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        unset($_SESSION["userID"]);
+        unset($_SESSION["username"]);
+        unset($_SESSION["type"]);
+    } catch (Exception $e) {
+        
     }
-    unset($_SESSION["userID"]);
-    unset($_SESSION["username"]);
-    unset($_SESSION["type"]);
 }
 
 function getCourseDetails($courseID, $db) {
@@ -317,15 +325,19 @@ function doesImageExist($filename) {
 }
 
 function isStudent() {
-    if (!isset($_SESSION)) {
-        session_start();
-    }
-    if (isset($_SESSION['type'])) {
-        if ($_SESSION['type'] == "L") {
-            return false;
-        } else {
-            return true;
+    try {
+        if (!isset($_SESSION)) {
+            session_start();
         }
+        if (isset($_SESSION['type'])) {
+            if ($_SESSION['type'] == "L") {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    } catch (Exception $e) {
+        
     }
 }
 
