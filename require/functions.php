@@ -472,4 +472,41 @@ function insertIntoAttempt($validity, $assignmentID, $questionID) {
     }
 }
 
+function getLastAssignmentID() {
+    $sql = "SELECT * FROM `assignment` WHERE `STUDENT_idSTUDENT`=6 ORDER BY `assignment`.`timestamp` DESC";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function tempReport($db) {
+    $sql = "SELECT * FROM `attempt` WHERE `ASSIGNMENT_idASSIGNMENT` = 12";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function loadQuestions($courseID, $db) {
+    $sql = "SELECT * FROM `forumquestion` WHERE `COURSE_idCOURSE` = " . $courseID . " ORDER BY timestamp DESC";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function loadAnswersByQuestion($questionID, $db) {
+    $sql = "SELECT *  FROM `forumanswer` WHERE `FORUMQUESTION_idFORUMQUESTION` = " . $questionID . " ORDER BY timestamp DESC";
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    return $result;
+}
+
+function echoModuleURL($moduleID, $db){
+    
+    
+}
+
 ?>

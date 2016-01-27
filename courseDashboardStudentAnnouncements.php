@@ -180,7 +180,7 @@ if (!sessionExists() || !isStudent()) {
                             </ul>
                         </li>
 
-                        <li><a href="documentation/index.html"><i class="fa fa-comments-o"></i> <span>Discussion Forum</span></a></li>
+                        <li><?php echo"<a href=\"courseDashboardStudentForum.php?moduleID=1&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-comments-o"></i> <span>Discussion Forum</span></a></li>
                         <li><?php echo"<a href=\"courseDashboardStudentAssignments.php?courseID=" . $courseID . "&token=" . sha1($courseID) . "\">"; ?><i class="fa fa-question-circle"></i> <span>Assignments</span></a></li>
                         <li><?php echo"<a href=\"courseDashboardStudentAboutLecturer.php?courseID=" . $courseID . "&token=" . sha1($courseID) . "\">"; ?><i class="fa fa-male"></i> <span>About Your Lecturer</span></a></li>
 

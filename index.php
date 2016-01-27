@@ -305,6 +305,7 @@
                         </ul><!-- /.gallery -->
                     </div>
                     <div class="clearfix"></div>
+                    <center><h4><a href="viewAllCourses.php">View All Courses</a></h4></center>
                     <br><br><br> <br><br><br>
                 </div><!-- /.container -->
             </div> <!-- /.templatemo-portfolio -->

@@ -14,6 +14,8 @@ if (!sessionExists() || !isStudent()) {
     $courseID = $_GET['courseID'];
     $student_details = loadStudentDetails($_SESSION['userID'], $db);
     $course_details = loadCourseDetails($courseID, $db);
+    $resultsOfCourse = getCourseDetails($courseID, $db);
+    $lecturerDetails = loadLecturerDetails($resultsOfCourse[0]['LECTURER_idLECTURER'], $db);
 }
 ?>
 <html>
@@ -52,6 +54,7 @@ if (!sessionExists() || !isStudent()) {
             <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
     </head>
     <body class="skin-blue sidebar-mini">
         <div class="wrapper">
@@ -72,14 +75,14 @@ if (!sessionExists() || !isStudent()) {
                     </a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
+                            <?php
+                            if (doesImageExist(STUDENT_PROFILE_PIC_UPLOAD_URL . $_SESSION['userID'] . ".jpg")) {
+                                $img_url = STUDENT_PROFILE_PIC_UPLOAD_URL . $_SESSION['userID'] . ".jpg";
+                            } else {
+                                $img_url = STUDENT_PROFILE_PIC_UPLOAD_URL . "default.jpg";
+                            }
+                            ?>
                             <li class="dropdown user user-menu">
-                                <?php
-                                if (doesImageExist(STUDENT_PROFILE_PIC_UPLOAD_URL . $_SESSION['userID'] . ".jpg")) {
-                                    $img_url = STUDENT_PROFILE_PIC_UPLOAD_URL . $_SESSION['userID'] . ".jpg";
-                                } else {
-                                    $img_url = STUDENT_PROFILE_PIC_UPLOAD_URL . "default.jpg";
-                                }
-                                ?>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="<?php echo $img_url; ?>" class="user-image" alt="User Image" />
                                     <span class="hidden-xs"><?php echo $student_details[0]['first_name'] . " " . $student_details[0]['last_name'] ?></span>
@@ -130,6 +133,8 @@ if (!sessionExists() || !isStudent()) {
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
+
+
                             <img src="<?php echo $img_url; ?>" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
@@ -152,7 +157,7 @@ if (!sessionExists() || !isStudent()) {
                         <li class="header"><center>COURSE ADMINISTRATION</center></li>
                         <li><?php echo"<a href=\"courseDashboardStudentAnnouncements.php?courseID=" . $courseID . "&token=" . sha1($courseID) . "\">"; ?><i class="fa fa-bullhorn"></i> <span>Announcements</span></a></li>
                         <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Course Schedule</span></a></li>
-                        <li class="active"><?php echo"<a href=\"courseDashboardStudentTips.php?moduleID=1&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-ticket"></i> <span>Tips for Working in KDUMOOC</span></a></li>
+                        <li><?php echo"<a href=\"courseDashboardStudentTips.php?moduleID=1&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-ticket"></i> <span>Tips for Working in KDUMOOC</span></a></li>
                         <li class="active treeview">
                             <a href="#">
                                 <i class="fa fa-dashboard"></i> <span>Modules</span> <i class="fa fa-angle-left pull-right"></i>
@@ -160,13 +165,13 @@ if (!sessionExists() || !isStudent()) {
                             <ul class="treeview-menu">
                                 <li><?php echo"<a href=\"courseDashboardStudentModules.php?moduleID=1&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-circle-o"></i>The Foundations: Logic and <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Proofs</a></li>
                                 <li><?php echo"<a href=\"courseDashboardStudentModules.php?moduleID=2&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-circle-o"></i>Basic Structures: Sets, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Functions, Sequences, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sums, and Matrices</a></li>
-                                <li><?php echo"<a href=\"courseDashboardStudentModules.php?moduleID=3&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-circle-o"></i>Induction and Recursion</a></li>
+                                <li><<?php echo"<a href=\"courseDashboardStudentModules.php?moduleID=3&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-circle-o"></i>Induction and Recursion</a></li>
 
                             </ul>
                         </li>
 
-                        <li><?php echo"<a href=\"courseDashboardStudentForum.php?moduleID=1&courseID=" . $courseID . "&token=" . sha1($courseID) . ">"; ?><i class="fa fa-comments-o"></i> <span>Discussion Forum</span></a></li>
-                        <li><?php echo"<a href=\"courseDashboardStudentAssignments.php?courseID=" . $courseID . "&token=" . sha1($courseID) . "\">"; ?><i class="fa fa-question-circle"></i> <span>Assignments</span></a></li>
+                        <li><a href="documentation/index.html"><i class="fa fa-comments-o"></i> <span>Discussion Forum</span></a></li>
+                        <li class="active"><?php echo"<a href=\"courseDashboardStudentAssignments.php?courseID=" . $courseID . "&token=" . sha1($courseID) . "\">"; ?><i class="fa fa-question-circle"></i> <span>Assignments</span></a></li>
                         <li><?php echo"<a href=\"courseDashboardStudentAboutLecturer.php?courseID=" . $courseID . "&token=" . sha1($courseID) . "\">"; ?><i class="fa fa-male"></i> <span>About Your Lecturer</span></a></li>
 
 
@@ -193,52 +198,88 @@ if (!sessionExists() || !isStudent()) {
                 </section>
 
                 <!-- Main content -->
-                <section id="idMainContent">
+                <section>
                     <center>
+                        <table style="width: 80%;text-align: justify;">
+                            <tr>
+                                <td>
+                                    <br/>
+                                    <b>Question 1:</b>
+                                    <h4>Can you explain how the multiplexer works?</h4>
+
+                                    <b>Answer1:</b>
+                                    <p>Multiplexing is the generic term used to describe the operation of sending one or more analogue or digital signals
+                                        over a common transmission line at different times or speeds and as such, the device we use to do just that is called
+                                        a Multiplexer.
+
+                                        The multiplexer, shortened to “MUX” or “MPX”, is a combinational logic circuit designed to switch one of several input 
+                                        lines through to a single common output line by the application of a control signal. Multiplexers operate like very fast 
+                                        acting multiple position rotary switches connecting or controlling multiple input lines called “channels” one at a time to
+                                        the output.
+
+                                        Multiplexers, or MUX’s, can be either digital circuits made from high speed logic gates used to switch digital or 
+                                        binary data or they can be analogue types using transistors, MOSFET’s or relays to switch one of the voltage or 
+                                        current inputs through to a single output.</p>
+
+                                    <b>Answer 2:</b>
+                                    <p>Its a multiway switch with 1 input and N outputs. 
+                                        Or N inputs and one output.
+                                        It needs a set of control signals that define which of the N you want to select.
+
+                                        It's useful for distributing one control signal to N different points, or perhaps for measuring N different signal 
+                                        sources with one measuring device.
+
+                                        important characteristics are voltage input range, and speed at which it can be switched and how long it takes to settle 
+                                        after switching N.
+
+                                        there are many versions for logic signals, analog signals, thermocouples, optical signals, etc. that they are specialized,
+                                        but the concept is similar.</p>
+
+
+                                    <hr>
+
+                                    <b>Question 2:</b>
+                                    <h4>In a group of 40 people, 10 are healthy and every person the of the remaining 30 has either high blood pressure, a high level of cholesterol or both. If 15 have high blood pressure and 25 have high level of cholesterol, 
+
+                                        a) how many people have high blood pressure and a high level of cholesterol? 
+
+                                        If a person is selected randomly from this group, what is the probability that he/she 
+
+                                        b) has high blood pressure (event A)? 
+
+                                        c) has high level of cholesterol(event B)? 
+
+                                        d) has high blood pressure and high level of cholesterol (event A and B)? 
+
+                                        e) has either high blood pressure or high level of cholesterol (event A or B)? 
+
+                                        f) Use the above to check the probability formula: P(A or B) = P(A) + P(B) - P(A and B).
+
+                                        Can anybody post answers for to this?</h4>
+
+                                    <b>Answer 1:</b>
+
+                                    <p>a) Let x be the number of people with both high blood pressure and high level of cholesterol. Hence (15 - x) will be the number of people with high blood pressure ONLY and (25 - x) will be the number of people with high level of cholesterol ONLY. We now express the fact that the total number of people with high blood pressure only, with high level of cholesterol only and with both is equal to 30. 
+(15 - x) + (25 - x) + x = 30 
+solve for x: x = 10 
+
+b) 15 have high blood pressure,hence P(A) = 15/40 = 0.375 
+
+c) 25 have high level of cholesterol, hence P(B) = 25/40 = 0.625 
+
+d) 10 have both,hence P(A and B) = 10/40 = 0.25 
+
+e) 30 have either, hence P(A or B) = 30/40 = 0.75 
+
+e) P(A) + P(B) - P(A and B) = 0.375 + 0.625 - 0.25 = 0.75 = P(A or B)</p>
+                                </td>
+                            </tr>
+                        </table>
                         <br/>
-                        <table style="width: 90%"><tr><td>
-                                    <div style="text-align: justify">
-
-                                        <h2 class="post-title">10 Tips to Prepare for Your Upcoming Course</a></h2>
-
-                                        <p>Top-performing KDUMOOC students share their advice on course success. Get the most out of your course experience!</p>
-                                        <img src="http://38.media.tumblr.com/e658f54f293afa9d9de940366f579093/tumblr_inline_ndggkl5cHF1rg0l34.png" style="float: left; border: 1px solid #CCC; margin: 5px 12px 5px 0px; width: 255px;" alt="motivation"><p><b>1. Motivation - Write down your reasons for joining the course and ultimate goals</b><br>
-                                            Jot down notes like: &ldquo;I want to move ahead in my career&rdquo; or &ldquo;I want to improve my skills as a chef.&ldquo; Post your answers on a refrigerator, bathroom mirror, computer screen so you can see them daily to spark persistence.</p>
-
-                                        <p><b>2. Time Management - Set aside a weekly day and time for coursework</b><br>
-                                            Open your calendar and choose a predictable, reliable time to dedicate to watching lectures and completing assignments. Set up a block of time, look ahead and if there are sessions you may miss, adjust accordingly. </p>
-
-                                        <p><b>3. Commitment - Watch the first lecture and complete the first assignment</b><br>
-                                            Our studies show that students who pass these first milestones are much more likely to complete the course. </p>
-
-                                        <p><b>4. Communications - Keep an eye out for emails from the Course Staff</b><br>Before and during the course, your instructor will send out emails that might include reminders about upcoming deadlines, announcements of changes to the course schedule, or links to helpful external resources. </p>
-
-
-
-                                        <p><b>5. Support - Engage in the forums </b><br>Anecdotal evidence shows that learners are more likely to succeed if they participate in course forums. Be sure to ask questions about assignments, discuss topics, share resources, and make friends. Students often form study groups based on native language and interest areas. If you don&rsquo;t see a group that fits your needs, start one by posting a new thread outlining your interests and goals, and invite others to join you!</p>
-
-                                        <p><b>6. Credentials - Consider earning a Verified Certificate</b><br>Earning a Verified Certificate has a deadline. Not only can you get a credential that can verifies the work you&rsquo;ve completed from a university partner, but it makes you be on track. </p>
-
-                                        <p><b>7. Accountability - Share your plans with your network</b><br>Tell your friends about the course, post achievements to your social media accounts, blog about your homework assignments. Having a fan base to cheer you on makes a difference.</p>
-
-                                        <p><b>8. Anticipate - Pick times to make up missed work</b><br>If you get distracted with obstacles like family, friends, work or an unexpected life event, consider how you will keep up with your coursework. Predicting upcoming roadblocks and adapting accordingly is one of the best strategies for reaching any goal.</p>
-
-                                        <p><b>9. Access - Download the mobile apps</b><br>Learn anytime, anywhere! With the KDUMOOC Apps for iPhone, iPad, and Android you can even download videos to watch lectures offline. </p>
-
-                                        <p><b>10. Supplies - Collect materials </b><br>Bookmark your course page, grab a notebook or digital app for notes (we like Evernote), a webcam, and collect any instructor-recommended materials. </p>
-
-                                    </div>
-                                </td></tr></table></center>
+                    </center>
                 </section>
             </div><!-- /.content-wrapper -->
-
-
-
-
             <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    <b>Version</b> 2.2.0
-                </div>
                 <strong>Copyright &copy; 2015 <a href="#">KDUMOOC</a>.</strong> All rights reserved.
             </footer>
 
@@ -284,6 +325,4 @@ if (!sessionExists() || !isStudent()) {
         <script src="dist/js/demo.js" type="text/javascript"></script>
     </body>
 </html>
-
-
 
